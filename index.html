@@ -15,7 +15,7 @@
         </div>
         
         <!-- Speech to Text Tab -->
-        <div class="tab-content active">
+        <div id="stt-tab" class="tab-content active">
             <div class="card">
                 <div class="section-header">
                     <span class="section-icon">🎤</span>
@@ -36,7 +36,12 @@
                     <input type="file" id="audioFileInput" accept="audio/*">
                 </div>
                 
-           
+                <div class="api-key-container">
+                    <h3>AssemblyAI API Key</h3>
+                    <p>Enter your API key to enable accurate speech recognition</p>
+                    <input type="text" id="apiKeyInput" placeholder="Enter your AssemblyAI API key">
+                    <p><small>Get a free API key at <a href="https://www.assemblyai.com/" target="_blank">assemblyai.com</a></small></p>
+                </div>
             </div>
             
             <div id="recordingsList"></div>
@@ -52,7 +57,7 @@
                 
                 <p>Enter text below and convert it to speech.</p>
                 
-                <textarea class="text-area" placeholder="Enter text to convert to speech..."></textarea>
+                <textarea id="ttsInput" class="text-area" placeholder="Enter text to convert to speech..."></textarea>
                 
                 <div class="voice-options">
                     <div class="option-row">
