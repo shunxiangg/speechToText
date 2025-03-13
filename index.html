@@ -4,6 +4,180 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Speech-to-Text and Text-to-Speech App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        h1, h2 {
+            color: #2a5885;
+            text-align: center;
+        }
+        
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .section-header h2 {
+            margin: 0;
+            text-align: left;
+        }
+        
+        .section-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .text-area {
+            width: 100%;
+            height: 150px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            resize: vertical;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+        
+        .result {
+            min-height: 150px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            background-color: white;
+            font-size: 16px;
+            line-height: 1.5;
+            overflow-y: auto;
+        }
+        
+        #recordingsList {
+            margin-top: 20px;
+        }
+        
+        #recordingsList > div {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .audio-player {
+            margin: 10px 0;
+            width: 100%;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .file-upload {
+            margin-top: 10px;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .voice-options {
+            margin-bottom: 15px;
+        }
+        
+        .option-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        .option-row label {
+            min-width: 100px;
+        }
+        
+        select, input[type="range"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            flex: 1;
+        }
+        
+        input[type="file"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .copy-btn {
+            background-color: #34a853;
+        }
+        
+        .copy-btn:hover {
+            background-color: #2e8f49;
+        }
+        
+        .clear-btn {
+            background-color: #ea4335;
+        }
+        
+        .clear-btn:hover {
+            background-color: #d33426;
+        }
+    </style>
 </head>
 <body>
     <h1>Speech-to-Text and Text-to-Speech App</h1>
@@ -48,7 +222,7 @@
         </div>
         
         <!-- Text to Speech Tab -->
-        <div class="tab-content">
+        <div id="tts-tab" class="tab-content">
             <div class="card">
                 <div class="section-header">
                     <span class="section-icon">🔊</span>
@@ -63,7 +237,7 @@
                     <div class="option-row">
                         <label for="voice">Voice:</label>
                         <select id="voice">
-                            <!-- Voices -->
+                            <!-- Voices will be populated with JavaScript -->
                         </select>
                     </div>
                     
@@ -74,20 +248,20 @@
                     </div>
                     
                     <div class="option-row">
-                        <label>Pitch:</label>
+                        <label for="pitch">Pitch:</label>
                         <input type="range" id="pitch" min="0.5" max="2" value="1" step="0.1">
                         <span id="pitchValue">1.0</span>
                     </div>
                 </div>
                 
                 <div class="controls">
-                    <button>Speak</button>
-                    <button disabled>Pause</button>
-                    <button disabled>Stop</button>
-                    <button disabled>Download MP3</button>
+                    <button id="speakButton">Speak</button>
+                    <button id="pauseResumeButton" disabled>Pause</button>
+                    <button id="stopTtsButton" disabled>Stop</button>
+                    <button id="downloadButton" disabled>Download MP3</button>
                 </div>
                 
-                <div class="status">Ready to speak</div>
+                <div id="ttsStatus" class="status">Ready to speak</div>
             </div>
         </div>
     </div>
