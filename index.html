@@ -1,1 +1,70 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech-to-Text and Text-to-Speech App</title>
+</head>
+<body>
+    <h1>Speech-to-Text and Text-to-Speech App</h1>
+    
+    <div class="app-container">
+        <div class="tabs">
+            <div class="tab active" data-tab="stt">Speech to Text</div>
+            <div class="tab" data-tab="tts">Text to Speech</div>
+        </div>
+        
+        <!-- Speech to Text Tab -->
+        <div class="tab-content active">
+            <div class="card">
+                <div class="section-header">
+                    <span class="section-icon">🎤</span>
+                    <h2>Speech to Text</h2>
+                </div>
+                
+                <p>Record audio or upload a file to convert speech to text.</p>
+                
+                <div class="controls">
+                    <button id="recordButton">Start Recording</button>
+                    <button id="stopButton" disabled>Stop</button>
+                </div>
+                
+                <div id="recordingStatus" class="status">Ready to record</div>
+                
+                <div class="file-upload">
+                    <p>Or upload an existing audio file:</p>
+                    <input type="file" id="audioFileInput" accept="audio/*">
+                </div>
+                
+           
+            </div>
+            
+            <div id="recordingsList"></div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Update active content
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
