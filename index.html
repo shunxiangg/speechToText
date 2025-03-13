@@ -552,6 +552,12 @@
                         // Wait 2 seconds between polling requests
                         await new Promise(resolve => setTimeout(resolve, 2000));
                         
+                        const checkResponse = await fetch(`https://api.assemblyai.com/v2/transcript/${transcriptId}`, {
+                            headers: {
+                                'authorization': apiKey
+                            }
+                        });
+                        
                         if (!checkResponse.ok) {
                             throw new Error(`Polling failed with status: ${checkResponse.status}`);
                         }
@@ -620,6 +626,195 @@
                     transcribeButton.disabled = false;
                 }
             }
+            
+            // ============= Text to Speech functionality =============
+            // DOM elements for TTS
+            const ttsInput = document.getElementById('ttsInput');
+            const voiceSelect = document.getElementById('voice');
+            const rateInput = document.getElementById('rate');
+            const rateValue = document.getElementById('rateValue');
+            const pitchInput = document.getElementById('pitch');
+            const pitchValue = document.getElementById('pitchValue');
+            const speakButton = document.getElementById('speakButton');
+            const pauseResumeButton = document.getElementById('pauseResumeButton');
+            const stopTtsButton = document.getElementById('stopTtsButton');
+            const downloadButton = document.getElementById('downloadButton');
+            const ttsStatus = document.getElementById('ttsStatus');
+            
+            let speechSynthesis = window.speechSynthesis;
+            let voices = [];
+            let currentUtterance = null;
+            let isPaused = false;
+            
+            // Check for SpeechSynthesis support
+            if (!speechSynthesis) {
+                alert('Your browser does not support Speech Synthesis. Please use Chrome, Firefox, or Edge.');
+                speakButton.disabled = true;
+            }
+            
+            // Initialize voices
+            function populateVoiceList() {
+                voices = speechSynthesis.getVoices();
+                
+                // Clear existing options
+                voiceSelect.innerHTML = '';
+                
+                // Add voices to select element
+                voices.forEach((voice, index) => {
+                    const option = document.createElement('option');
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    option.setAttribute('data-lang', voice.lang);
+                    option.setAttribute('data-index', index);
+                    voiceSelect.appendChild(option);
+                });
+                
+                // Set default voice
+                const defaultVoice = voices.findIndex(voice => voice.default);
+                if (defaultVoice !== -1) {
+                    voiceSelect.selectedIndex = defaultVoice;
+                }
+            }
+            
+            // Load voices
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = populateVoiceList;
+            }
+            
+            // Initial population of voices
+            populateVoiceList();
+            
+            // Update range values display
+            rateInput.addEventListener('input', () => {
+                rateValue.textContent = rateInput.value;
+            });
+            
+            pitchInput.addEventListener('input', () => {
+                pitchValue.textContent = pitchInput.value;
+            });
+            
+            // Speak button
+            speakButton.addEventListener('click', () => {
+                const text = ttsInput.value.trim();
+                if (!text) {
+                    ttsStatus.textContent = 'Please enter some text to speak';
+                    return;
+                }
+                
+                // Stop any ongoing speech
+                speechSynthesis.cancel();
+                
+                // Create a new utterance
+                const utterance = new SpeechSynthesisUtterance(text);
+                
+                // Set voice
+                const selectedOption = voiceSelect.selectedOptions[0];
+                const selectedIndex = selectedOption.getAttribute('data-index');
+                utterance.voice = voices[selectedIndex];
+                
+                // Set rate and pitch
+                utterance.rate = parseFloat(rateInput.value);
+                utterance.pitch = parseFloat(pitchInput.value);
+                
+                // Set event handlers
+                utterance.onstart = () => {
+                    ttsStatus.textContent = 'Speaking...';
+                    speakButton.disabled = true;
+                    pauseResumeButton.disabled = false;
+                    stopTtsButton.disabled = false;
+                    downloadButton.disabled = true;
+                    isPaused = false;
+                };
+                
+                utterance.onend = () => {
+                    ttsStatus.textContent = 'Finished speaking';
+                    speakButton.disabled = false;
+                    pauseResumeButton.disabled = true;
+                    stopTtsButton.disabled = true;
+                    downloadButton.disabled = false;
+                    currentUtterance = null;
+                };
+                
+                utterance.onerror = (event) => {
+                    ttsStatus.textContent = `Error: ${event.error}`;
+                    speakButton.disabled = false;
+                    pauseResumeButton.disabled = true;
+                    stopTtsButton.disabled = true;
+                    downloadButton.disabled = true;
+                    currentUtterance = null;
+                };
+                
+                // Store current utterance
+                currentUtterance = utterance;
+                
+                // Start speaking
+                speechSynthesis.speak(utterance);
+            });
+            
+            // Pause/Resume button
+            pauseResumeButton.addEventListener('click', () => {
+                if (!currentUtterance) return;
+                
+                if (isPaused) {
+                    // Resume speaking
+                    speechSynthesis.resume();
+                    pauseResumeButton.textContent = 'Pause';
+                    ttsStatus.textContent = 'Speaking...';
+                    isPaused = false;
+                } else {
+                    // Pause speaking
+                    speechSynthesis.pause();
+                    pauseResumeButton.textContent = 'Resume';
+                    ttsStatus.textContent = 'Paused';
+                    isPaused = true;
+                }
+            });
+            
+            // Stop button
+            stopTtsButton.addEventListener('click', () => {
+                if (!currentUtterance) return;
+                
+                speechSynthesis.cancel();
+                ttsStatus.textContent = 'Stopped';
+                speakButton.disabled = false;
+                pauseResumeButton.disabled = true;
+                stopTtsButton.disabled = true;
+                downloadButton.disabled = false;
+                pauseResumeButton.textContent = 'Pause';
+                isPaused = false;
+                currentUtterance = null;
+            });
+            
+            // Download as MP3 button (simulated functionality)
+            downloadButton.addEventListener('click', () => {
+                const text = ttsInput.value.trim();
+                if (!text) {
+                    ttsStatus.textContent = 'Please enter some text first';
+                    return;
+                }
+                
+                ttsStatus.textContent = 'Note: Actual MP3 download requires a server-side TTS API';
+                
+                // In a real implementation, this would use a server-side API
+                // to generate an MP3 file. For this demo, we'll create a text file
+                // with the speech content instead.
+                
+                // Create text blob and download link
+                const blob = new Blob([text], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'speech-text.txt';
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                
+                // Clean up
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 100);
+            });
         });
     </script>
 </body>
