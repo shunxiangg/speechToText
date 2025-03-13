@@ -41,6 +41,50 @@
             
             <div id="recordingsList"></div>
         </div>
+        
+        <!-- Text to Speech Tab -->
+        <div class="tab-content">
+            <div class="card">
+                <div class="section-header">
+                    <span class="section-icon">🔊</span>
+                    <h2>Text to Speech</h2>
+                </div>
+                
+                <p>Enter text below and convert it to speech.</p>
+                
+                <textarea class="text-area" placeholder="Enter text to convert to speech..."></textarea>
+                
+                <div class="voice-options">
+                    <div class="option-row">
+                        <label for="voice">Voice:</label>
+                        <select id="voice">
+                            <!-- Voices -->
+                        </select>
+                    </div>
+                    
+                    <div class="option-row">
+                        <label for="rate">Speed:</label>
+                        <input type="range" id="rate" min="0.5" max="2" value="1" step="0.1">
+                        <span id="rateValue">1.0</span>
+                    </div>
+                    
+                    <div class="option-row">
+                        <label>Pitch:</label>
+                        <input type="range" id="pitch" min="0.5" max="2" value="1" step="0.1">
+                        <span id="pitchValue">1.0</span>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <button>Speak</button>
+                    <button disabled>Pause</button>
+                    <button disabled>Stop</button>
+                    <button disabled>Download MP3</button>
+                </div>
+                
+                <div class="status">Ready to speak</div>
+            </div>
+        </div>
     </div>
     
     <script>
