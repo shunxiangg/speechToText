@@ -12,10 +12,11 @@
             padding: 20px;
             line-height: 1.6;
             color: #333;
+            background-color: #fff8e6;
         }
         
         h1, h2 {
-            color: #2a5885;
+            color: #5C0E14;
             text-align: center;
         }
         
@@ -26,11 +27,11 @@
         }
         
         .card {
-            border: 1px solid #ddd;
+            border: 1px solid #5C0E14;
             border-radius: 12px;
             padding: 20px;
-            background-color: #f9f9f9;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            background-color: #F0E193;
+            box-shadow: 0 2px 6px rgba(92, 14, 20, 0.2);
         }
         
         .section-header {
@@ -47,6 +48,7 @@
         .section-icon {
             font-size: 24px;
             margin-right: 10px;
+            color: #5C0E14;
         }
         
         .controls {
@@ -58,8 +60,8 @@
         
         button {
             padding: 10px 20px;
-            background-color: #4285f4;
-            color: white;
+            background-color: #5C0E14;
+            color: #F0E193;
             border: none;
             border-radius: 6px;
             cursor: pointer;
@@ -68,24 +70,42 @@
             transition: all 0.2s;
         }
         
+        button:hover {
+            background-color: #7a1a22;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 5px rgba(92, 14, 20, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: #9e8a8b;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
         .text-area {
             width: 100%;
             height: 150px;
             padding: 12px;
-            border: 1px solid #ddd;
+            border: 1px solid #5C0E14;
             border-radius: 6px;
             font-size: 16px;
             resize: vertical;
             box-sizing: border-box;
             margin-bottom: 15px;
+            background-color: #fff8e6;
         }
         
         .result {
             min-height: 150px;
-            border: 1px solid #ddd;
+            border: 1px solid #5C0E14;
             border-radius: 6px;
             padding: 15px;
-            background-color: white;
+            background-color: #fff8e6;
             font-size: 16px;
             line-height: 1.5;
             overflow-y: auto;
@@ -98,14 +118,52 @@
         #recordingsList > div {
             margin-bottom: 20px;
             padding: 15px;
-            background-color: #f0f0f0;
+            background-color: #f9e7b0;
             border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #5C0E14;
+            box-shadow: 0 1px 3px rgba(92, 14, 20, 0.1);
         }
         
         .audio-player {
             margin: 10px 0;
             width: 100%;
+        }
+        
+        .api-key-container {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f9e7b0;
+            border-radius: 6px;
+            border: 1px solid #5C0E14;
+        }
+        
+        #apiKeyInput {
+            padding: 10px;
+            border: 1px solid #5C0E14;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            background-color: #fff8e6;
+        }
+        
+        .status {
+            text-align: center;
+            color: #5C0E14;
+            margin: 10px 0;
+            font-style: italic;
+            font-weight: 500;
+        }
+        
+        .recording-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #5C0E14;
+            display: inline-block;
+            margin-right: 10px;
+            animation: pulse 1.5s infinite;
         }
         
         @keyframes pulse {
@@ -120,6 +178,30 @@
         
         .file-upload {
             margin-top: 10px;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #5C0E14;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid #5C0E14;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+            background-color: #f9e7b0;
+            margin-right: 5px;
+            color: #5C0E14;
+        }
+        
+        .tab.active {
+            background-color: #5C0E14;
+            color: #F0E193;
+            border-color: #5C0E14;
+            font-weight: bold;
         }
         
         .tab-content {
@@ -143,39 +225,42 @@
         
         .option-row label {
             min-width: 100px;
+            color: #5C0E14;
+            font-weight: 500;
         }
         
         select, input[type="range"] {
             padding: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid #5C0E14;
             border-radius: 4px;
             font-size: 16px;
             flex: 1;
+            background-color: #fff8e6;
         }
         
         input[type="file"] {
             padding: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid #5C0E14;
             border-radius: 4px;
-            background-color: white;
+            background-color: #fff8e6;
             width: 100%;
             box-sizing: border-box;
         }
         
         .copy-btn {
-            background-color: #34a853;
+            background-color: #7a1a22;
         }
         
         .copy-btn:hover {
-            background-color: #2e8f49;
+            background-color: #8c282f;
         }
         
         .clear-btn {
-            background-color: #ea4335;
+            background-color: #8c282f;
         }
         
         .clear-btn:hover {
-            background-color: #d33426;
+            background-color: #9e353c;
         }
     </style>
 </head>
@@ -287,6 +372,254 @@
                     document.getElementById(`${tabId}-tab`).classList.add('active');
                 });
             });
+            
+            // ============= Speech to Text functionality =============
+            // DOM elements
+            const recordButton = document.getElementById('recordButton');
+            const stopButton = document.getElementById('stopButton');
+            const recordingStatus = document.getElementById('recordingStatus');
+            const recordingsList = document.getElementById('recordingsList');
+            const apiKeyInput = document.getElementById('apiKeyInput');
+            const audioFileInput = document.getElementById('audioFileInput');
+            
+            // MediaRecorder variables
+            let mediaRecorder;
+            let audioChunks = [];
+            let audioBlob;
+            let audioUrl;
+            
+            // Check for MediaRecorder support
+            if (!window.MediaRecorder) {
+                alert('Your browser does not support MediaRecorder. Please use Chrome, Firefox, or Edge.');
+                recordButton.disabled = true;
+            }
+            
+            // Start recording function
+            recordButton.addEventListener('click', async () => {
+                try {
+                    // Request microphone access
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    
+                    recordButton.disabled = true;
+                    stopButton.disabled = false;
+                    recordingStatus.innerHTML = '<span class="recording-indicator"></span> Recording...';
+                    
+                    // Initialize MediaRecorder
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+                    // take audio data
+                    mediaRecorder.ondataavailable = (event) => {
+                        audioChunks.push(event.data);
+                    };
+                    
+                    // When recording stops
+                    mediaRecorder.onstop = () => {
+                        // Create audio blob and URL
+                        audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        audioUrl = URL.createObjectURL(audioBlob);
+                        
+                        // Add recording to the list
+                        addRecordingToList(audioBlob, audioUrl);
+                        
+                        // Stop all tracks in the stream
+                        stream.getTracks().forEach(track => track.stop());
+                        
+                        recordButton.disabled = false;
+                        stopButton.disabled = true;
+                        recordingStatus.textContent = 'Recording saved';
+                    };
+                    
+                    // Start recording
+                    mediaRecorder.start();
+                } catch (error) {
+                    console.error('Error accessing microphone:', error);
+                    recordingStatus.textContent = 'Error accessing microphone. Please check permissions.';
+                    recordButton.disabled = false;
+                }
+            });
+            
+            // Stop recording function
+            stopButton.addEventListener('click', () => {
+                if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                    mediaRecorder.stop();
+                }
+            });
+            
+            // Handle file uploads function
+            audioFileInput.addEventListener('change', (event) => {
+                if (event.target.files.length > 0) {
+                    const file = event.target.files[0];
+                    const fileUrl = URL.createObjectURL(file);
+                    
+                    // Add the file to the recordings list
+                    addRecordingToList(file, fileUrl);
+                }
+            });
+            
+            // Function to add a recording to the list
+            function addRecordingToList(blob, url) {
+                // Create recording container
+                const recordingContainer = document.createElement('div');
+                
+                // Create audio player
+                const audioElement = document.createElement('audio');
+                audioElement.controls = true;
+                audioElement.src = url;
+                audioElement.className = 'audio-player';
+                
+                // Create transcribe button
+                const transcribeButton = document.createElement('button');
+                transcribeButton.textContent = 'Transcribe';
+                transcribeButton.addEventListener('click', () => transcribeAudio(blob, recordingContainer));
+                
+                // Create result container
+                const resultContainer = document.createElement('div');
+                resultContainer.className = 'result hidden';
+                
+                // Add elements to recording container
+                recordingContainer.appendChild(document.createElement('hr'));
+                recordingContainer.appendChild(document.createTextNode('Recording:'));
+                recordingContainer.appendChild(audioElement);
+                recordingContainer.appendChild(transcribeButton);
+                recordingContainer.appendChild(resultContainer);
+                
+                // Add recording container to list
+                recordingsList.prepend(recordingContainer);
+            }
+            
+            // Function to transcribe audio using AssemblyAI
+            async function transcribeAudio(audioBlob, container) {
+                const apiKey = apiKeyInput.value.trim();
+                if (!apiKey) {
+                    alert('Please enter your AssemblyAI API key');
+                    return;
+                }
+                
+                const resultContainer = container.querySelector('.result');
+                const transcribeButton = container.querySelector('button');
+                
+                // Show result container and update UI
+                resultContainer.classList.remove('hidden');
+                resultContainer.textContent = 'Uploading audio file...';
+                transcribeButton.disabled = true;
+                
+                try {
+                    // Step 1: Upload the audio file
+                    const uploadResponse = await fetch('https://api.assemblyai.com/v2/upload', {
+                        method: 'POST',
+                        headers: {
+                            'authorization': apiKey
+                        },
+                        body: audioBlob
+                    });
+                    
+                    if (!uploadResponse.ok) {
+                        throw new Error(`Upload failed with status: ${uploadResponse.status}`);
+                    }
+                    
+                    const uploadData = await uploadResponse.json();
+                    const audioUrl = uploadData.upload_url;
+                    
+                    resultContainer.textContent = 'Audio uploaded. Starting transcription...';
+                    
+                    // Step 2: Start transcription
+                    const transcriptResponse = await fetch('https://api.assemblyai.com/v2/transcript', {
+                        method: 'POST',
+                        headers: {
+                            'authorization': apiKey,
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            audio_url: audioUrl,
+                            language_code: 'en_us'
+                        })
+                    });
+                    
+                    if (!transcriptResponse.ok) {
+                        throw new Error(`Transcription request failed with status: ${transcriptResponse.status}`);
+                    }
+                    
+                    const transcriptData = await transcriptResponse.json();
+                    const transcriptId = transcriptData.id;
+                    
+                    resultContainer.textContent = 'Transcribing...';
+                    
+                    // Step 3: Poll for transcription completion
+                    let transcriptResult;
+                    let completed = false;
+                    
+                    while (!completed) {
+                        // Wait 2 seconds between polling requests
+                        await new Promise(resolve => setTimeout(resolve, 2000));
+                        
+                        if (!checkResponse.ok) {
+                            throw new Error(`Polling failed with status: ${checkResponse.status}`);
+                        }
+                        
+                        transcriptResult = await checkResponse.json();
+                        
+                        if (transcriptResult.status === 'completed' || transcriptResult.status === 'error') {
+                            completed = true;
+                        } else {
+                            resultContainer.textContent = `Transcribing... (${transcriptResult.status})`;
+                        }
+                    }
+                    
+                    // Step 4: Display the transcription
+                    if (transcriptResult.status === 'completed') {
+                        resultContainer.textContent = transcriptResult.text;
+                        
+                        // Create button container
+                        const buttonContainer = document.createElement('div');
+                        buttonContainer.style.marginTop = '15px';
+                        buttonContainer.style.display = 'flex';
+                        buttonContainer.style.gap = '10px';
+                        
+                        // Create copy button
+                        const copyButton = document.createElement('button');
+                        copyButton.textContent = 'Copy Text';
+                        copyButton.className = 'copy-btn';
+                        copyButton.addEventListener('click', () => {
+                            navigator.clipboard.writeText(transcriptResult.text)
+                                .then(() => {
+                                    copyButton.textContent = 'Copied!';
+                                    setTimeout(() => {
+                                        copyButton.textContent = 'Copy Text';
+                                    }, 2000);
+                                })
+                                .catch(err => {
+                                    console.error('Failed to copy: ', err);
+                                });
+                        });
+                        
+                        // Create "Use in TTS" button
+                        const useTtsButton = document.createElement('button');
+                        useTtsButton.textContent = 'Use in Text-to-Speech';
+                        useTtsButton.addEventListener('click', () => {
+                            // Switch to TTS tab
+                            document.querySelector('[data-tab="tts"]').click();
+                            
+                            // Set the text in the TTS input
+                            document.getElementById('ttsInput').value = transcriptResult.text;
+                            
+                            // Scroll to the TTS section
+                            document.getElementById('tts-tab').scrollIntoView({ behavior: 'smooth' });
+                        });
+                        
+                        buttonContainer.appendChild(copyButton);
+                        buttonContainer.appendChild(useTtsButton);
+                        resultContainer.appendChild(buttonContainer);
+                    } else {
+                        resultContainer.textContent = `Transcription failed: ${transcriptResult.error}`;
+                    }
+                    
+                } catch (error) {
+                    console.error('Transcription error:', error);
+                    resultContainer.textContent = `Error: ${error.message}`;
+                } finally {
+                    transcribeButton.disabled = false;
+                }
+            }
         });
     </script>
 </body>
